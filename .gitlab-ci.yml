@@ -1,0 +1,31 @@
+
+stages:
+  - build
+  - test
+
+image:
+  name: docker/compose:latest
+  entrypoint: ["/bin/sh", "-c"]
+
+variables:
+  DOCKER_HOST: tcp://docker:2375/
+  DOCKER_DRIVER: overlay2
+  
+build_api:
+  stage: build
+  script:
+    - cd petclinic-api
+    - docker build -t serenitydojo/serenity-petclinic-api .
+    - docker run -p 9966:9966 --detach --name petclinic-api serenitydojo/serenity-petclinic-api
+
+build_ui:
+  stage: build
+  script:
+    - cd petclinic-ui
+    - docker build -t serenitydojo/serenity-petclinic-ui .
+    - docker run -p 8080:80 --detach --name petclinic-ui serenitydojo/serenity-petclinic-ui
+
+acceptance_tests:
+  stage: test
+  script:
+    - curl -f http://localhost:8080/petclinic
