@@ -1,10 +1,10 @@
 package petclinic.stepdefinitions;
 
-import io.cucumber.java.Before;
 import io.cucumber.java.ParameterType;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.actors.OnStage;
 import net.serenitybdd.screenplay.actors.OnlineCast;
+import org.junit.Before;
 
 public class ParameterDefinitions {
 
